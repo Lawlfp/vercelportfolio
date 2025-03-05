@@ -1,0 +1,9 @@
+{
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "buildCommand": "git lfs pull"
+}
