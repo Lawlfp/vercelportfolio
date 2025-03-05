@@ -1,0 +1,60 @@
+
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 160px;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  line-height: 40px;
+  color: #ecf0f1;
+}
+
+.content__container {
+  font-weight: 400;
+  overflow: hidden;
+  height: 40px;
+  padding: 0 40px;
+  position: relative;
+}
+
+/* Pseudo-elements for brackets removed */
+
+.content__container__text {
+  display: inline;
+  float: left;
+  margin: 0;
+}
+
+.content__container__list {
+  margin-top: 0;
+  padding-left: 0; /* Remove the left padding */
+  text-align: center; /* Center text */
+  list-style: none;
+  animation-name: change;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+}
+
+
+.content__container__list__item {
+  line-height: 40px;
+  margin: 0;
+}
+
+/* Keyframes */
+@keyframes opacity {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes change {
+  0%, 20%, 100% { transform: translate3d(0, 0, 0); }          /* First item */
+  25%, 45% { transform: translate3d(0, -33.33%, 0); }           /* Second item */
+  50%, 70% { transform: translate3d(0, -66.67%, 0); }           /* Third item */
+  75%, 95% { transform: translate3d(0, -33.33%, 0); }           /* Back to second */
+}
+

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagonal Transitions with Transformed Navigation Buttons</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+  <link href="rrr.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+      background: transparent;
+    }
+    
+    /* Fullscreen Video Background */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    /* Container for pages */
+    .container {
+      position: absolute;
+      width: 200vw;
+      height: 200vh;
+      transition: transform 0.8s ease-in-out;
+      background: transparent;
+    }
+    /* Each page fills the viewport and is transparent; removed border */
+    .page {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* border: 2px solid #000; */  /* Removed black borders */
+      background: transparent;
+    }
+    /* Position pages as vertices of a triangle */
+    .page:nth-child(1) { top: 0; left: 50vw; }
+    .page:nth-child(2) { top: 100vh; left: 0; }
+    .page:nth-child(3) { top: 100vh; left: 100vw; }
+    /* Title styling */
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: white;
+    }
+    /* Navigation Buttons */
+    .nav-btn {
+      position: fixed;
+      background: transparent;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 36px;
+      font-family: 'Source Sans Pro', sans-serif;
+      text-decoration: underline;
+      text-decoration-thickness: 5px;
+      text-underline-offset: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      opacity: 1;
+    }
+    .left-btn {
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left center;
+    }
+    .right-btn {
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: right center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .fade {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    /* Ellipses and circles styling */
+    .ellipses {
+      position: absolute;
+      top: 20px; 
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      height: 240px;
+    }
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      background: transparent;
+    }
+    .circle-1 {
+      width: 240px;
+      height: 240px;
+      top: 0;
+      left: 0;
+    }
+    .circle-2 {
+      width: 227px;
+      height: 227px;
+      top: 6.5px;
+      left: 6.5px;
+    }
+    .circle-3 {
+      width: 220px;
+      height: 220px;
+      top: 10px;
+      left: 10px;
+      background-image: url('me.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .circle-text {
+      margin: 280px auto 0 auto;
+      letter-spacing: 1px;
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      text-align: center;
+      color: #fff;
+      font-size: 48px;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: bold;
+    }
+	
+	.about{
+
+      background: transparent;
+      color: white;
+      border: none;
+	  margin-top:72px;
+      font-size: 48px;
+      font-family: 'Source Sans Pro', sans-serif;
+      text-decoration: underline;
+      text-decoration-thickness: 5px;
+      text-underline-offset: 10px;
+      
+      border-radius: 5px;
+      opacity: 1;
+	  
+	}
+	.box{
+	box-sizing:border-box;
+	}
+	.aboutunder{
+	  font-size: 18px;
+      font-family: 'Source Sans Pro', sans-serif;
+	  color:#C5A5A5;
+	  text-align:center;
+	  font-weight:400;
+	  position:relative;
+	  //-webkit-text-stroke: 1px #040303;
+	  width:622px;
+	  height:92px;
+	 
+	  margin-top:58px;
+	  margin-left:auto;
+	  margin-right:auto;
+	}
+	
+	#cards{
+		width:285px;
+		height:348px;
+		border-radius:5px;
+		border-style:solid;
+		border-color:#322727;
+		border-width:1px;
+		margin-left:22px;
+		margin-right:22px;
+		display:flex;
+		justify-content:flex-start;
+		flex-direction:column;
+		align-items: center;
+	}
+	.symbolcontainer{
+		position:absolute;
+		width:825px;
+		height:50px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+
+		top:800px;
+		gap:40px;
+	}
+	.links{
+		height:50px;
+		width:50px;
+	}
+
+	.cardsimg{
+		width:100px;
+		height:100px;
+		margin-top:11px;
+	}
+	
+	.cardspan{
+	
+	
+	text-align: center;
+	color: #BBBBBB;
+	font-size: 24px;
+	font-family: Source Sans Pro;
+	margin-top:2px;
+	word-wrap: break-word;
+	}
+	.cardspan2 {
+    width: 239px;
+    height: 105px;
+    text-align: center;
+    color: #A0A0A0;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+	margin-top:8px;
+  }
+    .skillscontainer{
+	width:265px;
+	height:50px;
+	display:flex;
+	flex-wrap:wrap;
+	gap:11px;
+	align-items:center;
+	justify-content:center;
+	margin-top:8px;
+	}
+	.skillsborder {
+    background: #242424;
+  border-radius: 5px;
+  padding: 3px 6px 3px 6px;
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  }
+  .skillspan {
+    color: #ffffff;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 11px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-wrap: break-word;
+  }
+	.worksspan{
+	color: #b1b2b5;
+	text-align: center;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	}
+	.workscontainer{
+	width:945px;
+	height:534px;
+	border-radius:10px;
+	border-color:#747474;
+	border-style:solid;
+	border-width:1px;
+	display:flex;
+	flex-direction:column;
+	overflow:scroll;
+	box-sizing: border-box;
+	gap:5px;
+	/* Hide native scrollbar for Firefox */
+	scrollbar-width: none; 
+	/* Hide native scrollbar for IE, Edge */
+	-ms-overflow-style: none; 
+	
+	scroll-snap-type: y mandatory;
+	}
+	.workscontainer div { scroll-snap-align: start; }
+
+	.scrollbar{
+	  background: #d9d9d9;
+	  border-radius: 5px;
+	  width: 12px;
+	  height: 534px;
+	}
+	.thumb{
+	  width:100%;
+	  border-radius: 5px;
+	  height:100%;
+	  background:#393939;
+	  
+	}
+		.dropdown-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* Dropdown menu mimicking the original container's styles */
+    .dropdown-menu {
+      display: none; /* Hidden by default */
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      border-style: solid;
+      border-color: #322727;
+      border-width: 1px;
+      width: 367px;
+      margin-top: 4px;
+      background: #fff;
+      z-index:99;
+      /* Flex container to stack items vertically */
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Style for each dropdown item */
+    .dropdown-item {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background:black;
+      /* Matching the text styling from .worksspan */
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #b1b2b5;
+    }
+    .dropdown-item:not(:first-child) {
+      border-top: 1px solid #322727;
+    }
+	
+    /* Optional hover effect for dropdown items */
+    .dropdown-item:hover {
+      background: #322727;
+	  color:white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fullscreen Video Background -->
+  <video autoplay muted loop class="video-bg">
+    <source src="bg.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
+  <!-- Container with full-screen pages -->
+  <div class="container" id="pages">
+    <!-- Page 1: main -->
+	
+    <div class="page">
+
+
+
+      <header style="position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 24px;">
+        <div class="ellipses">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+          <div class="circle circle-3"></div>
+          <div class="circle-text">
+            <p>Hello, I am Christian Trio</p>
+          </div>
+        </div>
+      </header>
+      <div style="width: 218px; height: 30px; position: relative">
+        <div style="left: 32px; top: 0px; position: absolute; text-align: center; color: #B1B2B5; font-size: 24px; font-family: Source Sans Pro; font-weight: 400;">
+          Cavite, Philippines
+        </div>
+        <div data-svg-wrapper style="left: 0px; top: 3px; position: absolute">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 11.5C11.337 11.5 10.7011 11.2366 10.2322 10.7678C9.76339 10.2989 9.5 9.66304 9.5 9C9.5 8.33696 9.76339 7.70107 10.2322 7.23223C10.7011 6.76339 11.337 6.5 12 6.5C12.663 6.5 13.2989 6.76339 13.7678 7.23223C14.2366 7.70107 14.5 8.33696 14.5 9C14.5 9.3283 14.4353 9.65339 14.3097 9.95671C14.1841 10.26 13.9999 10.5356 13.7678 10.7678C13.5356 10.9999 13.26 11.1841 12.9567 11.3097C12.6534 11.4353 12.3283 11.5 12 11.5ZM12 2C10.1435 2 8.36301 2.7375 7.05025 4.05025C5.7375 5.36301 5 7.14348 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 7.14348 18.2625 5.36301 16.9497 4.05025C15.637 2.7375 13.8565 2 12 2Z" fill="#B1B2B5"/>
+          </svg>
+        </div>
+        <div style="position: absolute; top: 110px; left: 50%; transform: translateX(-50%); text-align: center; color: #B1B2B5; font-size: 24px; font-family: 'Source Sans Pro', sans-serif; font-weight: 400; width: 300px;">
+          <div class="content__container" style="padding: 0;">
+            <ul class="content__container__list" style="padding-left: 0; text-align: center;">
+              <li class="content__container__list__item">Web Developer</li>
+              <li class="content__container__list__item">UI/UX Designer</li>
+              <li class="content__container__list__item">Graphic Designer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+	  <!-- End of moving text-->
+	  <!-- Start of Icons-->
+	  <div class="symbolcontainer">
+		<img src="linkedin.png" class="links"><img src="github.png" class="links"><img src="mail.png" class="links">
+	  </div>
+    </div>
+    <!-- Page 2: about -->
+    <div class="page">
+      <header style="position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 24px;">
+        <p class="about">About</p>
+		<div class="box"><p class="aboutunder">I am a dynamic professional with a knack for UI/UX design and web development. By merging technical skill with creative vision. I craft seamless digital experiences. My mission is to equip businesses with innovative, customized solutions that strengthen brand presence and deliver measurable results.</p>
+				</div>
+      </header>
+	  
+			<div style="position:relative;display:flex;margin-top:150px;">
+				<div id="cards">
+					<img src="webdev.gif" class="cardsimg"><span class="cardspan">Web Developer</span><span class="cardspan2">Crafting fast, responsive websites and web apps that blend clean code with peak performance, ensuring a smooth and engaging user experience.</span>
+					<div class="skillscontainer">
+						<div class="skillsborder">
+						  <span class="skillspan">HTML</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">CSS</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">JavaScript</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">MySQL</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">PHP</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Bootstrap</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">React</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">C++</span>
+						</div>
+						
+					</div>
+					
+				</div>
+					
+				<div id="cards">
+					<img src="uiux.gif" class="cardsimg"><span class="cardspan">UI/UX Designer</span><span class="cardspan2">Bringing visions to life through striking visuals and innovative design. I craft designs that captivate and inspire.</span>
+					<div class="skillscontainer">
+						<div class="skillsborder">
+						  <span class="skillspan">Figma</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Penpot</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Wordpress</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">12 Column Grid</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Design System</span>
+						</div>
+						
+						
+						
+						
+					</div>
+				</div>					
+				<div id="cards">
+					<img src="graphic.gif" class="cardsimg"><span class="cardspan">Graphic Designer</span><span class="cardspan2">Transforming ideas into stunning visuals with a keen eye for aesthetics, crafting designs that captivate, communicate, and leave a lasting impact.</span>
+					<div class="skillscontainer">
+						<div class="skillsborder">
+						  <span class="skillspan">Canva</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Adobe Photoshop</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">GIMP</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Color Theory</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Visual Balance</span>
+						</div>
+						<div class="skillsborder">
+						  <span class="skillspan">Hierarchy</span>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			
+    </div>
+    <!-- Page 3: work -->
+    <div class="page">
+      <header style="position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 24px;">
+        <p class="about">Works</p>	
+						<div class="dropdown-container">
+							<!-- Clickable area with your original code -->
+							<div id="dropdownToggle" style="cursor: pointer;">
+							  <div style="
+								  border-radius: 5px;
+								  border-style: solid;
+								  border-color: #322727;
+								  border-width: 1px;
+								  height: 32px;
+								  width: 367px;
+								  margin-left: auto;
+								  margin-right: auto;
+								  margin-top: 65px;
+								">
+								<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+								  <span class="worksspan">Management System for Golden Teeth Clinic v1</span>
+								  <img src="dropdown.png" style="width: 12px; height: 9px; margin-left: 4px;" alt="Dropdown Icon">
+								</div>
+							  </div>
+							</div>
+							
+							<!-- Dropdown menu with identical border, width, and rounded corners -->
+							<div id="dropdownMenu" class="dropdown-menu">
+							  <div class="dropdown-item">Option 1</div>
+							  <div class="dropdown-item">Option 2</div>
+							  <div class="dropdown-item">Option 3</div>
+							</div>
+						  </div>
+  
+
+      </header>
+		<div style="position:absolute;top:298px;width:1266px;height:600px;display:flex;align-items:center;justify-content:center;gap:20px;">
+			<div class="workscontainer">
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f1.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f2.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f3.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f4.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f5.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f6.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f7.png" style="width:100%;height:100%;"></div>
+				<div style="width:945px;height:534px;flex-shrink:0;"><img src="version1/f8.png" style="width:100%;height:100%;"></div>
+			</div>
+			
+			<div class="scrollbar"><div class="thumb"></div></div>
+		</div>
+    </div>
+  </div>
+  <!-- Navigation Buttons -->
+  <button class="nav-btn left-btn" onclick="goLeft()">About</button>
+  <button class="nav-btn right-btn" onclick="goRight()">Works</button>
+  <script>
+    const positions = [
+      { x: -50, y: 0 },
+      { x: 0, y: -100 },
+      { x: -100, y: -100 }
+    ];
+    const navMapping = {
+      0: { left: { target: 1, label: "About" }, right: { target: 2, label: "Works" } },
+      1: { left: { target: 2, label: "Works" }, right: { target: 0, label: "Main" } },
+      2: { left: { target: 0, label: "Main" }, right: { target: 1, label: "About" } }
+    };
+    let currentPage = 0;
+    function updatePosition() {
+      const pos = positions[currentPage];
+      document.getElementById('pages').style.transform =
+        `translate(${pos.x}vw, ${pos.y}vh)`;
+    }
+    function updateNavigationButtons() {
+      const leftButton = document.querySelector('.left-btn');
+      const rightButton = document.querySelector('.right-btn');
+      leftButton.innerText = navMapping[currentPage].left.label;
+      rightButton.innerText = navMapping[currentPage].right.label;
+      leftButton.classList.remove('fade');
+      rightButton.classList.remove('fade');
+      void leftButton.offsetWidth;
+      void rightButton.offsetWidth;
+      leftButton.classList.add('fade');
+      rightButton.classList.add('fade');
+    }
+    function goLeft() {
+      currentPage = navMapping[currentPage].left.target;
+      updatePosition();
+      updateNavigationButtons();
+    }
+    function goRight() {
+      currentPage = navMapping[currentPage].right.target;
+      updatePosition();
+      updateNavigationButtons();
+    }
+    updatePosition();
+    updateNavigationButtons();
+  </script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector('.workscontainer');
+  const scrollbar = document.querySelector('.scrollbar');
+  const thumb = document.querySelector('.thumb');
+
+  // Ensure proper positioning for the thumb inside the scrollbar
+  scrollbar.style.position = 'relative';
+  thumb.style.position = 'absolute';
+
+  function updateCustomScrollbar() {
+    const containerHeight = container.clientHeight;
+    const scrollHeight = container.scrollHeight;
+    const scrollTop = container.scrollTop;
+    const scrollbarHeight = scrollbar.clientHeight;
+
+    // Calculate the thumb's height based on the visible content ratio.
+    const visibleRatio = containerHeight / scrollHeight;
+    thumb.style.height = `${visibleRatio * scrollbarHeight}px`;
+
+    // Calculate the thumb's top offset based on the scroll position.
+    const thumbHeight = thumb.offsetHeight;
+    const scrollRatio = scrollTop / (scrollHeight - containerHeight);
+    const thumbTop = scrollRatio * (scrollbarHeight - thumbHeight);
+    thumb.style.top = `${thumbTop}px`;
+  }
+
+  // Update the thumb when scrolling or resizing
+  container.addEventListener('scroll', updateCustomScrollbar);
+  window.addEventListener('resize', updateCustomScrollbar);
+  updateCustomScrollbar();
+
+  // ----- Drag functionality -----
+  let isDragging = false;
+  let startY;
+  let startThumbTop;
+
+  thumb.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    startThumbTop = thumb.offsetTop;
+    // Prevent text selection while dragging
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const deltaY = e.clientY - startY;
+    const scrollbarHeight = scrollbar.clientHeight;
+    const thumbHeight = thumb.offsetHeight;
+    let newThumbTop = startThumbTop + deltaY;
+
+    // Constrain newThumbTop within the scrollbar's bounds
+    newThumbTop = Math.max(0, Math.min(newThumbTop, scrollbarHeight - thumbHeight));
+
+    // Update container scrollTop based on new thumb position
+    const scrollRatio = newThumbTop / (scrollbarHeight - thumbHeight);
+    container.scrollTop = scrollRatio * (container.scrollHeight - container.clientHeight);
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+    }
+  });
+});
+
+  </script>
+    <script>
+    // Toggle dropdown menu on click using "flex" to ensure vertical stacking.
+    document.getElementById('dropdownToggle').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var menu = document.getElementById('dropdownMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
+    // Hide the dropdown if a click happens outside the container.
+    document.addEventListener('click', function(event) {
+      var container = document.querySelector('.dropdown-container');
+      if (!container.contains(event.target)) {
+        document.getElementById('dropdownMenu').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
