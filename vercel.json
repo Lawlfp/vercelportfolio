@@ -1,11 +1,14 @@
 {
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static",
-      "config": {
-        "buildCommand": "git lfs pull"
-      }
+      "src": "tru.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/tru.html"
     }
   ]
 }
